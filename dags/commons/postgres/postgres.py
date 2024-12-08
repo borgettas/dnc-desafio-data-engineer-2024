@@ -1,0 +1,30 @@
+import psycopg2
+from sqlalchemy import create_engine
+
+def create_connection(
+    user:       str
+    , password: str
+    , dbname:   str= 'postgres'
+    , host:     str= 'localhost'
+    , port:     int= 5432
+):
+    # conn_params = {
+    #     'dbname': dbname
+    #     , 'user': user
+    #     , 'password': password
+    #     , 'host': host
+    #     , 'port': port
+    # }
+
+    # try:
+    #     return psycopg2.connect(**conn_params)
+    # except Exception as e:
+    #     print(f"Error connecting to the database: {e}")
+
+
+    connection_string = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{dbname}'
+
+    try:
+        return create_engine(connection_string)
+    except Exception as e:
+        print(f"Error connecting to the database: {e}")

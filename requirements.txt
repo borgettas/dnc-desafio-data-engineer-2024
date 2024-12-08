@@ -1,6 +1,9 @@
-pandas
 numpy
-requests
 openmeteo-requests
+pandas
+# psycopg2
+psycopg2-binary
+requests
 requests-cache 
-retry-requests 
+retry-requests
+SQLAlchemy
