@@ -2,8 +2,9 @@
 
 
 ``` bash
-USER=postgres
-PASSWORD=postgres
-PORT=5432
-HOST=datawarehouse
+export POSTGRES_DW_USER=postgres
+export POSTGRES_DW_PASSWORD=postgres
+export POSTGRES_DW_HOST=datawarehouse
+export POSTGRES_DW_PORT=5432
+export POSTGRES_DW_GOOGLE_API_KEY=
 ```

@@ -53,6 +53,12 @@
     build:
       context: ../
       dockerfile: ./docker/Dockerfile
+      args:
+        POSTGRES_DW_USER: ${POSTGRES_DW_USER}
+        POSTGRES_DW_PASSWORD: ${POSTGRES_DW_PASSWORD}
+        POSTGRES_DW_HOST: ${POSTGRES_DW_HOST}
+        POSTGRES_DW_PORT: ${POSTGRES_DW_PORT}
+        POSTGRES_DW_GOOGLE_API_KEY: ${POSTGRES_DW_GOOGLE_API_KEY}
     environment:
       &airflow-common-env
       AIRFLOW__CORE__EXECUTOR: CeleryExecutor
@@ -74,6 +80,11 @@
       # The following line can be used to set a custom config file, stored in the local config folder
       # If you want to use it, outcomment it and replace airflow.cfg with the name of your config file
       # AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
+      POSTGRES_DW_USER: ${POSTGRES_DW_USER}
+      POSTGRES_DW_PASSWORD: ${POSTGRES_DW_PASSWORD}
+      POSTGRES_DW_HOST: ${POSTGRES_DW_HOST}
+      POSTGRES_DW_PORT: ${POSTGRES_DW_PORT}
+      POSTGRES_DW_GOOGLE_API_KEY: ${POSTGRES_DW_GOOGLE_API_KEY}
     volumes:
       - ../dags:/opt/airflow/dags
       - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs

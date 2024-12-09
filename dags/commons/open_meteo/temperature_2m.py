@@ -53,15 +53,17 @@ def ingestion_temperature_2m(
         hourly_dataframe['timezone']= response.Timezone()
         hourly_dataframe['hash'] = hourly_dataframe['datetime'].apply(generate_hash)
         hourly_dataframe['ingested_at']= datetime.now()
-
-        print(hourly_dataframe)
-        print(os.getenv('USER'))
         
         # save
         try:
             hourly_dataframe.to_sql(
                 'temperature_2m'
-                , create_connection(user=os.getenv('USER'), password=os.getenv('PASSWORD'), port=os.getenv('PORT'), host=os.getenv('HOST'))
+                , create_connection(
+                    user=os.getenv('POSTGRES_DW_USER')
+                    , password=os.getenv('POSTGRES_DW_PASSWORD')
+                    , port=os.getenv('POSTGRES_DW_PORT')
+                    , host=str(os.getenv('POSTGRES_DW_HOST'))
+                )
                 , if_exists='replace'
                 , index=False
             )

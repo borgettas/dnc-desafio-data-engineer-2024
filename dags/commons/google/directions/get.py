@@ -11,7 +11,7 @@ def get_directions(
     , origin: str
 ):
     try:
-        url= f"https://maps.googleapis.com/maps/api/directions/json?destination={destination}&origin={origin}&key={os.environ.get('GOOGLE_API_KEY')}"
+        url= f"https://maps.googleapis.com/maps/api/directions/json?destination={destination}&origin={origin}&key={os.environ.get('POSTGRES_DW_GOOGLE_API_KEY')}"
         response = requests.get(url)
     except requests.exceptions.RequestException as e:
         raise e
@@ -39,7 +39,12 @@ def get_directions(
     try:
         df.to_sql(
             'google_direction'
-            , create_connection(user=os.environ.get('USER'), password=os.environ.get('PASSWORD'), port=os.environ.get('PORT'), host=os.environ.get('HOST'))
+            , create_connection(
+                user=os.environ.get('POSTGRES_DW_USER')
+                , password=os.environ.get('POSTGRES_DW_PASSWORD')
+                , port=os.environ.get('POSTGRES_DW_PORT')
+                , host=os.environ.get('POSTGRES_DW_HOST')
+            )
             , if_exists='replace'
             , index=False
         )
