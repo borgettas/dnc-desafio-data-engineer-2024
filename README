@@ -1,1 +1,9 @@
 <!-- https://open-meteo.com/en/docs#latitude=-23.1794&longitude=-45.8869&timezone=America%2FSao_Paulo -->
+
+
+``` bash
+USER=postgres
+PASSWORD=postgres
+PORT=5432
+HOST=datawarehouse
+```

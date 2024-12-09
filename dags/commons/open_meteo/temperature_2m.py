@@ -1,10 +1,11 @@
-import datetime
+import os
 import openmeteo_requests
 import pandas as pd
 import requests_cache
 
 from commons.postgres.postgres import create_connection
 from commons.ingestion.hash import generate_hash
+from datetime import datetime
 from retry_requests import retry
 
 
@@ -51,17 +52,19 @@ def ingestion_temperature_2m(
         hourly_dataframe['timezone_abbeviation']= response.TimezoneAbbreviation()
         hourly_dataframe['timezone']= response.Timezone()
         hourly_dataframe['hash'] = hourly_dataframe['datetime'].apply(generate_hash)
+        hourly_dataframe['ingested_at']= datetime.now()
 
         print(hourly_dataframe)
+        print(os.getenv('USER'))
         
         # save
         try:
             hourly_dataframe.to_sql(
                 'temperature_2m'
-                , create_connection(user='postgres', password='postgres', port='5432', host='datawarehouse')
+                , create_connection(user=os.getenv('USER'), password=os.getenv('PASSWORD'), port=os.getenv('PORT'), host=os.getenv('HOST'))
                 , if_exists='replace'
                 , index=False
             )
             print("Dados inseridos com sucesso")
         except Exception as e:
-            print(f"Erro ao inserir dados: {e}")
+            raise e

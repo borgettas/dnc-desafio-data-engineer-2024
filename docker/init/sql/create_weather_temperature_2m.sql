@@ -9,5 +9,6 @@ CREATE TABLE temperature_2m (
     longitude FLOAT NOT NULL,
     elevation FLOAT,
     timezone_abbreviation VARCHAR(70),
-    timezone VARCHAR(70)
+    timezone VARCHAR(70),
+    ingested_at TIMESTAMP NOT NULL
 );
