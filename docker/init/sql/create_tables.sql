@@ -26,16 +26,3 @@ CREATE TABLE temperature_2m (
     timezone VARCHAR(70),
     ingested_at TIMESTAMP NOT NULL
 );
-
-CREATE TABLE rain (
-    id SERIAL PRIMARY KEY,
-    hash VARCHAR(255) NOT NULL,
-    datetime TIMESTAMP NOT NULL,
-    temperature VARCHAR(255) NOT NULL,
-    latitude FLOAT NOT NULL,
-    longitude FLOAT NOT NULL,
-    elevation FLOAT,
-    timezone_abbreviation VARCHAR(70),
-    timezone VARCHAR(70),
-    ingested_at TIMESTAMP NOT NULL
-);
