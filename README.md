@@ -4,7 +4,7 @@
 2. **Limpeza e Transformação**;
 3. **Modelagem de Dados**;
 4. **Integração com o Banco de Dados**;
-5. **Visualização de Dados**;
+5. **Visualização de Dados**; 
 
 
 # Arquitetura do projeto
