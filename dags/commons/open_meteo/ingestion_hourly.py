@@ -5,7 +5,7 @@ import requests_cache
 
 from commons.postgres.postgres import create_connection
 from commons.ingestion.hash import generate_hash
-from commons.ingestion.normalization import treat_null_values_to_zero, treat_cols_with_null_values_to_zero
+from commons.ingestion.normalization import treat_cols_with_null_values_to_zero
 from datetime import datetime
 from retry_requests import retry
 

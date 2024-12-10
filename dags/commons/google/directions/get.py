@@ -4,6 +4,7 @@ import requests
 
 from commons.postgres.postgres import create_connection
 from commons.ingestion.hash import generate_hash
+from commons.ingestion.normalization import treat_null_values_to_zero, treat_cols_with_null_values_to_zero
 from datetime import datetime
 
 
@@ -36,6 +37,12 @@ def get_directions(
     df['ingested_at']= datetime.now()
     
     df['id']= (df['start_address']+df['end_address']).apply(generate_hash)
+    
+    # normalizations
+    df = treat_cols_with_null_values_to_zero(
+        df
+        , ['northeast_lat', 'northeast_lng', 'southwest_lat', 'southwest_lng', 'distance', 'duration']
+    )
     
     try:
         df.to_sql(
