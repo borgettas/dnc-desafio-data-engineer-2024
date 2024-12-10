@@ -312,44 +312,44 @@
     #     airflow-init:
     #       condition: service_completed_successfully
   
-  #   metabase:
-  #     image: metabase/metabase:latest
-  #     container_name: metabase
-  #     hostname: metabase
-  #     volumes:
-  #       - /dev/urandom:/dev/random:ro
-  #     expose:
-  #       - 3000
-  #     ports:
-  #       - 3000:3000
-  #     environment:
-  #       MB_DB_TYPE: postgres
-  #       MB_DB_DBNAME: metabaseappdb
-  #       MB_DB_PORT: 5432
-  #       MB_DB_USER: metabase
-  #       MB_DB_PASS: mysecretpassword
-  #       MB_DB_HOST: postgresmetabase
-  #     networks:
-  #       - metanet1
-  #     healthcheck:
-  #       test: curl --fail -I http://localhost:3000/api/health || exit 1
-  #       interval: 15s
-  #       timeout: 5s
-  #       retries: 5
-  #   postgresmetabase:
-  #     image: postgres:latest
-  #     container_name: postgresmetabase
-  #     hostname: postgresmetabase
-  #     environment:
-  #       POSTGRES_USER: metabase
-  #       POSTGRES_DB: metabaseappdb
-  #       POSTGRES_PASSWORD: mysecretpassword
-  #     networks:
-  #       - metanet1
+    metabase:
+      image: metabase/metabase:latest
+      container_name: metabase
+      hostname: metabase
+      volumes:
+        - /dev/urandom:/dev/random:ro
+      expose:
+        - 3000
+      ports:
+        - 3000:3000
+      environment:
+        MB_DB_TYPE: postgres
+        MB_DB_DBNAME: metabaseappdb
+        MB_DB_PORT: 5432
+        MB_DB_USER: metabase
+        MB_DB_PASS: mysecretpassword
+        MB_DB_HOST: postgresmetabase
+      networks:
+        - metanet1
+      healthcheck:
+        test: curl --fail -I http://localhost:3000/api/health || exit 1
+        interval: 15s
+        timeout: 5s
+        retries: 5
+    postgresmetabase:
+      image: postgres:latest
+      container_name: postgresmetabase
+      hostname: postgresmetabase
+      environment:
+        POSTGRES_USER: metabase
+        POSTGRES_DB: metabaseappdb
+        POSTGRES_PASSWORD: mysecretpassword
+      networks:
+        - metanet1
   
-  # networks:
-  #   metanet1:
-  #     driver: bridge
+  networks:
+    metanet1:
+      driver: bridge
 
   volumes:
     postgres-db-volume:
