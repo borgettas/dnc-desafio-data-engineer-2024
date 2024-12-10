@@ -10,6 +10,15 @@
 # Arquitetura do projeto
 ![alt text](docs/images/arquitetura_projeto.png)
 
+    .
+    ├── dags
+    │   ├── commons
+    │   ├── dags_files_1.py
+    │   └── dags_files_2.py
+    ├── docker
+    ├── docs
+    └── tests
+
 
 ## API's
 1. **Open-Meteo**: API de simples consulta em python, onde a mesma não precisa de autenticação e é gratuita, nos disponibilizando diversas categorias de dados históricos como:
