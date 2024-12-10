@@ -5,6 +5,7 @@ import requests_cache
 
 from commons.postgres.postgres import create_connection
 from commons.ingestion.hash import generate_hash
+from commons.ingestion.normalization import treat_null_values_to_zero, treat_cols_with_null_values_to_zero
 from datetime import datetime
 from retry_requests import retry
 
@@ -56,7 +57,10 @@ def ingestion_hourly(
         df['hash'] = df['datetime'].apply(generate_hash)
         df['ingested_at']= datetime.now()
         
-        # print(df)
+        
+        # normalizations
+        df = treat_cols_with_null_values_to_zero(df, ['temperature', 'latitude', 'longitude', 'elevation'])
+        
         
         # save
         try:
