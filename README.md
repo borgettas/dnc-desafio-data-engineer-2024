@@ -101,6 +101,11 @@ Os dados que serão coletados pelos pipelines poderão ser vizuados também pelo
     HOST=localhost
     PORT=5438
 
+## Metabase
+Acesse em http://localhost:3000
+
+`TBD`
+
 # Testes Unitários
 
 Criar  Ambiente Python
