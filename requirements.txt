@@ -7,3 +7,5 @@ requests
 requests-cache
 retry-requests
 SQLAlchemy
+pytest
+pytest-mock

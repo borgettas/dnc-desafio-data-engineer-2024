@@ -6,6 +6,7 @@ from commons.postgres.postgres import create_connection
 from commons.ingestion.hash import generate_hash
 from datetime import datetime
 
+
 def get_directions(
     destination: str
     , origin: str

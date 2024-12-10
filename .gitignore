@@ -60,3 +60,7 @@ docker/plugins/
 
 # airflow
 dags/__pycache__/
+
+
+# pytest
+.pytest*
