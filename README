@@ -1,4 +1,40 @@
-<!-- https://open-meteo.com/en/docs#latitude=-23.1794&longitude=-45.8869&timezone=America%2FSao_Paulo -->
+# Objetivo do Projeto
+    Contruir um pipeline de dodos que envolva as seguintes etapas:
+1. **Extração de Dados:** Extrair dados sobre o [clima](https://open-meteo.com/en/docs#latitude=-23.1794&longitude=-45.8869&timezone=America%2FSao_Paulo) e [trânsito](https://developers.google.com/maps/documentation/directions/overview);
+2. **Limpeza e Transformação**;
+3. **Modelagem de Dados**;
+4. **Integração com o Banco de Dados**;
+5. **Visualização de Dados**;
+
+
+# Arquitetura do projeto
+![alt text](docs/images/arquitetura_projeto.png)
+
+
+## API's
+1. **Open-Meteo**: API de simples consulta em python, onde a mesma não precisa de autenticação e é gratuita, nos disponibilizando diversas categorias de dados históricos como:
+    
+    - Temperatura
+    - Umidade Relativa
+    - Chuva
+    - Vento 
+
+2. **Google Diretions**: API do Google responsável por nos entregar os trajetos de um ponto **A** ao ponto **B**. Nela é necessário o acesso ao console do Google Cloud e criação de uma *key* para autenticação na API.
+
+## Orquestrador
+Para orquestrar nossas tarefas de maneira automática, foi utilizado o Apache Airflow. Nele criaremos algumas tarefas que farão a requisição nas api's e conexão com o banco de dados para salvar salvar os dados coletados.
+
+## Banco de Dados
+Par o nosso banco de dados(Data Warehouse), vamos utilizar o Postgres 16, onde nele, serão criadas tabelas para cada segmento de cada dado advindos das api's.
+
+## Data Viz
+E para vizualização dos nossos dados vamos utilizar o Metabase, outra ferramenta Open Source, com facil processo para criação dos nossos dados.
+
+#  Gerenciamento da aplicações
+Para gerenciar nossos apps, vamos construí-los utilizando o Docker-Compose. Com o objetivo de facilitar a instalação, manutenção e replicabilidade. Para encontrar as configurações, acesse `docker/` .
+
+# Modelagem dos Dados 
+
 
 
 ``` bash
@@ -6,5 +42,5 @@ export POSTGRES_DW_USER=postgres
 export POSTGRES_DW_PASSWORD=postgres
 export POSTGRES_DW_HOST=datawarehouse
 export POSTGRES_DW_PORT=5432
-export POSTGRES_DW_GOOGLE_API_KEY=
+export POSTGRES_DW_GOOGLE_API_KEY=""
 ```

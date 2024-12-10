@@ -9,11 +9,13 @@ from datetime import datetime
 from retry_requests import retry
 
 
-def ingestion_temperature_2m(
+def ingestion_hourly(
         latitude: float
         , longitude: float
         , start_date: float
         , end_date: float
+        , tablename: str
+        , category: str
     ):
     cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
     retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
@@ -26,7 +28,7 @@ def ingestion_temperature_2m(
         "longitude": longitude,
         "start_date": start_date,
         "end_date": end_date,
-        "hourly": "temperature_2m"
+        "hourly": category
     }
     responses = openmeteo.weather_api(url, params=params)
 
@@ -44,20 +46,22 @@ def ingestion_temperature_2m(
         }
         hourly_data["temperature"] = hourly_temperature_2m
 
-        hourly_dataframe = pd.DataFrame(data = hourly_data)
+        df = pd.DataFrame(data = hourly_data)
 
-        hourly_dataframe['latitude']= response.Latitude()
-        hourly_dataframe['longitude']= response.Longitude()
-        hourly_dataframe['elevation']= response.Elevation()
-        hourly_dataframe['timezone_abbeviation']= response.TimezoneAbbreviation()
-        hourly_dataframe['timezone']= response.Timezone()
-        hourly_dataframe['hash'] = hourly_dataframe['datetime'].apply(generate_hash)
-        hourly_dataframe['ingested_at']= datetime.now()
+        df['latitude']= response.Latitude()
+        df['longitude']= response.Longitude()
+        df['elevation']= response.Elevation()
+        df['timezone_abbeviation']= response.TimezoneAbbreviation()
+        df['timezone']= response.Timezone()
+        df['hash'] = df['datetime'].apply(generate_hash)
+        df['ingested_at']= datetime.now()
+        
+        # print(df)
         
         # save
         try:
-            hourly_dataframe.to_sql(
-                'temperature_2m'
+            df.to_sql(
+                tablename
                 , create_connection(
                     user=os.getenv('POSTGRES_DW_USER')
                     , password=os.getenv('POSTGRES_DW_PASSWORD')

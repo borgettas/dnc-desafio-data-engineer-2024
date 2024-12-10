@@ -1,6 +1,6 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
-from commons.open_meteo.temperature_2m import ingestion_temperature_2m
+from commons.open_meteo.ingestion_hourly import ingestion_hourly
 from datetime import date, datetime, timedelta
 
 
@@ -17,11 +17,13 @@ with DAG(
 
     sao_jose_dos_campos = PythonOperator(
         task_id= 'sao_jose_dos_campos'
-        , python_callable= ingestion_temperature_2m
+        , python_callable= ingestion_hourly
         , op_kwargs= {
             "latitude": -23.1794,
             "longitude": -45.8869,
             "start_date": date.today() - timedelta(days=7),
-            "end_date": date.today()
+            "end_date": date.today(),
+            "category": "temperature_2m",
+            "tablename": "temperature_2m"
         }
     )
